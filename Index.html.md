@@ -1,0 +1,997 @@
+# Banque Victoire.html   
+  
+<!DOCTYPE html>  
+  
+<html lang="fr">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+<title>Mon Argent 🌟</title>  
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">  
+<style>  
+  :root {  
+    --bg: #FFF9F0;  
+    --yellow: #FFD93D;  
+    --orange: #FF9A3C;  
+    --green: #6BCB77;  
+    --blue: #4D96FF;  
+    --pink: #FF6B9D;  
+    --purple: #C77DFF;  
+    --red: #FF5757;  
+    --dark: #2D2D2D;  
+    --card: #FFFFFF;  
+    --shadow: 0 6px 0px rgba(0,0,0,0.15);  
+    --radius: 24px;  
+  }  
+  
+- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }  
+  
+body {  
+font-family: ‘Nunito’, sans-serif;  
+background: var(–bg);  
+min-height: 100vh;  
+overflow-x: hidden;  
+user-select: none;  
+}  
+  
+/* ===== SCREENS ===== */  
+.screen { display: none; min-height: 100vh; padding: 0 0 100px; animation: fadeIn .3s ease; }  
+.screen.active { display: block; }  
+@keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }  
+  
+/* ===== HOME ===== */  
+#home {  
+background: linear-gradient(160deg, #FFE066 0%, #FFDAB9 50%, #C8F5FF 100%);  
+display: flex;  
+flex-direction: column;  
+align-items: center;  
+justify-content: center;  
+min-height: 100vh;  
+padding: 30px 20px;  
+gap: 20px;  
+}  
+  
+.home-title {  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 2.6rem;  
+color: var(–dark);  
+text-align: center;  
+line-height: 1.1;  
+text-shadow: 3px 3px 0 rgba(255,255,255,0.6);  
+}  
+  
+.home-stars { font-size: 2rem; letter-spacing: 8px; }  
+  
+.balance-badge {  
+background: white;  
+border-radius: 30px;  
+padding: 16px 36px;  
+font-size: 2.2rem;  
+font-weight: 900;  
+color: var(–dark);  
+box-shadow: var(–shadow);  
+text-align: center;  
+}  
+  
+.balance-badge span { color: var(–green); }  
+  
+.nav-buttons { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 14px; }  
+  
+.nav-btn {  
+width: 100%;  
+padding: 22px 20px;  
+border: none;  
+border-radius: var(–radius);  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.5rem;  
+font-weight: 800;  
+cursor: pointer;  
+display: flex;  
+align-items: center;  
+gap: 14px;  
+transition: transform .12s, box-shadow .12s;  
+position: relative;  
+top: 0;  
+letter-spacing: 0.5px;  
+}  
+  
+.nav-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,0.15) !important; }  
+  
+.btn-money { background: var(–green); color: white; box-shadow: 0 6px 0 #3da648; }  
+.btn-choose { background: var(–blue); color: white; box-shadow: 0 6px 0 #2a6fcc; }  
+.btn-goals { background: var(–pink); color: white; box-shadow: 0 6px 0 #cc4474; }  
+  
+.nav-btn .emoji { font-size: 2rem; }  
+  
+/* ===== HEADER (inner screens) ===== */  
+.screen-header {  
+padding: 20px 20px 0;  
+display: flex;  
+align-items: center;  
+gap: 12px;  
+}  
+  
+.back-btn {  
+background: white;  
+border: none;  
+border-radius: 50%;  
+width: 48px; height: 48px;  
+font-size: 1.4rem;  
+cursor: pointer;  
+box-shadow: var(–shadow);  
+flex-shrink: 0;  
+display: flex; align-items: center; justify-content: center;  
+transition: transform .12s;  
+}  
+.back-btn:active { transform: scale(0.9); }  
+  
+.screen-title {  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.6rem;  
+font-weight: 800;  
+color: var(–dark);  
+}  
+  
+/* ===== SECTION CARDS ===== */  
+.section-content { padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; }  
+  
+.card {  
+background: var(–card);  
+border-radius: var(–radius);  
+padding: 20px;  
+box-shadow: var(–shadow);  
+}  
+  
+/* ===== MON ARGENT ===== */  
+#money-screen { background: linear-gradient(160deg, #E8FFE8 0%, #FFFDE8 100%); }  
+  
+.big-balance {  
+text-align: center;  
+padding: 24px;  
+background: white;  
+border-radius: var(–radius);  
+box-shadow: var(–shadow);  
+position: relative;  
+overflow: hidden;  
+}  
+  
+.big-balance .label { font-size: 1.1rem; color: #888; font-weight: 700; margin-bottom: 4px; }  
+.big-balance .amount {  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 4rem;  
+font-weight: 800;  
+color: var(–green);  
+line-height: 1;  
+transition: transform .3s;  
+}  
+.big-balance .amount.pop { animation: pop .4s ease; }  
+@keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.25)} 100%{transform:scale(1)} }  
+  
+.add-label { font-size: 1rem; font-weight: 800; color: #555; text-align: center; }  
+.add-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }  
+  
+.add-btn {  
+padding: 16px 8px;  
+border: none;  
+border-radius: 16px;  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.3rem;  
+font-weight: 800;  
+cursor: pointer;  
+background: var(–yellow);  
+color: var(–dark);  
+box-shadow: 0 5px 0 #c9a700;  
+transition: transform .12s;  
+}  
+.add-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #c9a700; }  
+  
+.history-list { display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto; }  
+.history-item {  
+display: flex;  
+align-items: center;  
+gap: 10px;  
+padding: 10px 14px;  
+border-radius: 14px;  
+background: #f8f8f8;  
+font-size: 0.95rem;  
+font-weight: 700;  
+}  
+.history-item .h-icon { font-size: 1.3rem; }  
+.history-item .h-text { flex: 1; color: var(–dark); }  
+.history-item .h-amount { font-family: ‘Baloo 2’, cursive; font-size: 1.1rem; }  
+.history-item.gain .h-amount { color: var(–green); }  
+.history-item.spend .h-amount { color: var(–red); }  
+  
+.section-label { font-family: ‘Baloo 2’, cursive; font-size: 1.15rem; font-weight: 800; color: var(–dark); margin-bottom: 10px; }  
+  
+/* ===== JE CHOISIS ===== */  
+#choose-screen { background: linear-gradient(160deg, #E8F4FF 0%, #F0E8FF 100%); }  
+  
+.scenario-card {  
+text-align: center;  
+padding: 28px 20px;  
+background: white;  
+border-radius: var(–radius);  
+box-shadow: var(–shadow);  
+}  
+  
+.scenario-emoji { font-size: 3.5rem; margin-bottom: 12px; }  
+.scenario-question {  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.4rem;  
+font-weight: 800;  
+color: var(–dark);  
+line-height: 1.3;  
+margin-bottom: 8px;  
+}  
+.scenario-cost {  
+font-size: 1.1rem;  
+font-weight: 700;  
+color: var(–orange);  
+margin-bottom: 20px;  
+}  
+.scenario-balance-note {  
+font-size: 0.9rem;  
+color: #999;  
+margin-bottom: 20px;  
+font-weight: 700;  
+}  
+  
+.choice-buttons { display: flex; gap: 12px; }  
+  
+.choice-btn {  
+flex: 1;  
+padding: 18px;  
+border: none;  
+border-radius: 18px;  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.4rem;  
+font-weight: 800;  
+cursor: pointer;  
+transition: transform .12s;  
+}  
+.choice-btn:active { transform: translateY(4px); }  
+.btn-yes { background: var(–green); color: white; box-shadow: 0 5px 0 #3da648; }  
+.btn-no { background: var(–orange); color: white; box-shadow: 0 5px 0 #c96e1a; }  
+  
+.result-card {  
+display: none;  
+text-align: center;  
+padding: 28px 20px;  
+border-radius: var(–radius);  
+animation: bounceIn .4s ease;  
+}  
+.result-card.show { display: block; }  
+@keyframes bounceIn { 0%{transform:scale(0.7);opacity:0} 70%{transform:scale(1.05)} 100%{transform:scale(1);opacity:1} }  
+  
+.result-emoji { font-size: 4rem; margin-bottom: 10px; }  
+.result-message {  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.5rem;  
+font-weight: 800;  
+color: var(–dark);  
+line-height: 1.3;  
+margin-bottom: 16px;  
+}  
+.result-tip {  
+font-size: 1rem;  
+font-weight: 700;  
+color: #666;  
+font-style: italic;  
+margin-bottom: 20px;  
+}  
+  
+.next-btn {  
+padding: 16px 36px;  
+border: none;  
+border-radius: 20px;  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.2rem;  
+font-weight: 800;  
+cursor: pointer;  
+background: var(–blue);  
+color: white;  
+box-shadow: 0 5px 0 #2a6fcc;  
+transition: transform .12s;  
+}  
+.next-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #2a6fcc; }  
+  
+.no-funds-msg {  
+background: #fff3f3;  
+border-radius: 16px;  
+padding: 14px;  
+text-align: center;  
+font-size: 1rem;  
+font-weight: 700;  
+color: var(–red);  
+margin-top: -8px;  
+}  
+  
+/* ===== MES OBJECTIFS ===== */  
+#goals-screen { background: linear-gradient(160deg, #FFF0F5 0%, #FFF8E8 100%); }  
+  
+.goals-list { display: flex; flex-direction: column; gap: 14px; }  
+  
+.goal-card {  
+background: white;  
+border-radius: var(–radius);  
+padding: 18px;  
+box-shadow: var(–shadow);  
+}  
+  
+.goal-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }  
+.goal-emoji { font-size: 2rem; }  
+.goal-info { flex: 1; }  
+.goal-name { font-family: ‘Baloo 2’, cursive; font-size: 1.2rem; font-weight: 800; color: var(–dark); }  
+.goal-price { font-size: 0.9rem; font-weight: 700; color: #888; }  
+.goal-delete { background: none; border: none; font-size: 1.3rem; cursor: pointer; padding: 4px; opacity: 0.5; }  
+  
+.progress-bar-bg {  
+background: #eee;  
+border-radius: 999px;  
+height: 18px;  
+overflow: hidden;  
+margin-bottom: 8px;  
+}  
+.progress-bar-fill {  
+height: 100%;  
+border-radius: 999px;  
+background: linear-gradient(90deg, var(–pink), var(–purple));  
+transition: width .6s cubic-bezier(.34,1.56,.64,1);  
+min-width: 6px;  
+}  
+  
+.goal-status {  
+display: flex;  
+justify-content: space-between;  
+font-size: 0.9rem;  
+font-weight: 700;  
+}  
+.goal-saved { color: var(–green); }  
+.goal-missing { color: var(–red); }  
+.goal-done-badge {  
+background: var(–green);  
+color: white;  
+border-radius: 999px;  
+padding: 2px 12px;  
+font-size: 0.85rem;  
+font-weight: 800;  
+}  
+  
+.add-goal-card {  
+background: white;  
+border-radius: var(–radius);  
+padding: 20px;  
+box-shadow: var(–shadow);  
+}  
+  
+.add-goal-title { font-family: ‘Baloo 2’, cursive; font-size: 1.15rem; font-weight: 800; color: var(–dark); margin-bottom: 14px; }  
+  
+.input-row { display: flex; gap: 10px; margin-bottom: 10px; }  
+  
+.goal-input {  
+flex: 1;  
+border: 3px solid #eee;  
+border-radius: 14px;  
+padding: 12px 14px;  
+font-family: ‘Nunito’, sans-serif;  
+font-size: 1rem;  
+font-weight: 700;  
+color: var(–dark);  
+outline: none;  
+transition: border-color .2s;  
+}  
+.goal-input:focus { border-color: var(–pink); }  
+  
+.emoji-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }  
+.emoji-pick {  
+width: 42px; height: 42px;  
+border-radius: 12px;  
+border: 3px solid transparent;  
+background: #f4f4f4;  
+font-size: 1.4rem;  
+cursor: pointer;  
+display: flex; align-items: center; justify-content: center;  
+transition: border-color .15s, background .15s;  
+}  
+.emoji-pick.selected { border-color: var(–pink); background: #ffeef5; }  
+  
+.create-goal-btn {  
+width: 100%;  
+padding: 16px;  
+border: none;  
+border-radius: 16px;  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.2rem;  
+font-weight: 800;  
+cursor: pointer;  
+background: var(–pink);  
+color: white;  
+box-shadow: 0 5px 0 #cc4474;  
+transition: transform .12s;  
+}  
+.create-goal-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #cc4474; }  
+  
+/* ===== CONFETTI ===== */  
+.confetti-container {  
+position: fixed;  
+top: 0; left: 0;  
+width: 100%; height: 100%;  
+pointer-events: none;  
+z-index: 9999;  
+overflow: hidden;  
+}  
+.confetti-piece {  
+position: absolute;  
+width: 12px; height: 12px;  
+border-radius: 2px;  
+animation: confettiFall linear forwards;  
+}  
+@keyframes confettiFall {  
+0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }  
+100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }  
+}  
+  
+/* ===== COIN ANIMATION ===== */  
+.coin-fly {  
+position: fixed;  
+font-size: 2rem;  
+pointer-events: none;  
+z-index: 9998;  
+animation: coinUp 0.8s ease forwards;  
+}  
+@keyframes coinUp {  
+0% { opacity: 1; transform: translateY(0) scale(1); }  
+100% { opacity: 0; transform: translateY(-80px) scale(1.5); }  
+}  
+  
+/* ===== BOTTOM BADGE (balance) ===== */  
+.bottom-balance {  
+position: fixed;  
+bottom: 16px;  
+left: 50%;  
+transform: translateX(-50%);  
+background: white;  
+border-radius: 999px;  
+padding: 10px 24px;  
+box-shadow: 0 4px 20px rgba(0,0,0,0.15);  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.1rem;  
+font-weight: 800;  
+color: var(–dark);  
+z-index: 100;  
+white-space: nowrap;  
+}  
+.bottom-balance span { color: var(–green); }  
+  
+/* ===== TOAST ===== */  
+.toast {  
+position: fixed;  
+top: 20px;  
+left: 50%;  
+transform: translateX(-50%) translateY(-80px);  
+background: var(–dark);  
+color: white;  
+padding: 12px 24px;  
+border-radius: 999px;  
+font-family: ‘Baloo 2’, cursive;  
+font-size: 1.1rem;  
+font-weight: 800;  
+z-index: 10000;  
+transition: transform .35s cubic-bezier(.34,1.56,.64,1);  
+white-space: nowrap;  
+}  
+.toast.show { transform: translateX(-50%) translateY(0); }  
+  
+/* ===== MISC ===== */  
+.empty-history { text-align: center; color: #bbb; font-size: 0.95rem; font-weight: 700; padding: 16px 0; }  
+  
+.parent-note {  
+font-size: 0.8rem;  
+color: #aaa;  
+font-weight: 700;  
+text-align: center;  
+margin-top: -6px;  
+}  
+</style>  
+  
+</head>  
+<body>  
+  
+<!-- CONFETTI -->  
+  
+<div class="confetti-container" id="confetti"></div>  
+  
+<!-- TOAST -->  
+  
+<div class="toast" id="toast"></div>  
+  
+<!-- ============================  
+     HOME  
+============================= -->  
+  
+<div class="screen active" id="home">  
+  <div class="home-title">Mon Argent 🌟</div>  
+  <div class="home-stars">⭐⭐⭐</div>  
+  <div class="balance-badge">Tu as <span id="home-balance">0</span> $</div>  
+  <div class="nav-buttons">  
+    <button class="nav-btn btn-money" onclick="goTo('money-screen')">  
+      <span class="emoji">💰</span> Mon argent  
+    </button>  
+    <button class="nav-btn btn-choose" onclick="startScenarios()">  
+      <span class="emoji">🛒</span> Je choisis  
+    </button>  
+    <button class="nav-btn btn-goals" onclick="goTo('goals-screen')">  
+      <span class="emoji">🎯</span> Mes objectifs  
+    </button>  
+  </div>  
+</div>  
+  
+<!-- ============================  
+     MON ARGENT  
+============================= -->  
+  
+<div class="screen" id="money-screen">  
+  <div class="screen-header">  
+    <button class="back-btn" onclick="goHome()">←</button>  
+    <div class="screen-title">💰 Mon argent</div>  
+  </div>  
+  <div class="section-content">  
+  
+```  
+<div class="big-balance">  
+  <div class="label">Tu as</div>  
+  <div class="amount" id="money-amount">0 $</div>  
+</div>  
+  
+<div class="card">  
+  <div class="section-label">👨‍👩‍👧 Parent : ajouter de l'argent</div>  
+  <div class="parent-note">Appuie pour donner de l'argent</div>  
+  <br>  
+  <div class="add-buttons">  
+    <button class="add-btn" onclick="addMoney(1)">+ 1 $</button>  
+    <button class="add-btn" onclick="addMoney(2)">+ 2 $</button>  
+    <button class="add-btn" onclick="addMoney(5)">+ 5 $</button>  
+    <button class="add-btn" onclick="addMoney(10)">+ 10 $</button>  
+  </div>  
+</div>  
+  
+<div class="card">  
+  <div class="section-label">📋 Historique</div>  
+  <div class="history-list" id="history-list">  
+    <div class="empty-history">Rien pour l'instant !</div>  
+  </div>  
+</div>  
+```  
+  
+  </div>  
+</div>  
+  
+<!-- ============================  
+     JE CHOISIS  
+============================= -->  
+  
+<div class="screen" id="choose-screen">  
+  <div class="screen-header">  
+    <button class="back-btn" onclick="goHome()">←</button>  
+    <div class="screen-title">🛒 Je choisis</div>  
+  </div>  
+  <div class="section-content">  
+  
+```  
+<div class="scenario-card" id="scenario-card">  
+  <div class="scenario-emoji" id="sc-emoji">🎈</div>  
+  <div class="scenario-question" id="sc-question">Tu veux acheter un jouet ?</div>  
+  <div class="scenario-cost" id="sc-cost">Ça coûte 5 $</div>  
+  <div class="scenario-balance-note" id="sc-balance-note"></div>  
+  <div class="choice-buttons">  
+    <button class="choice-btn btn-yes" id="btn-yes" onclick="chooseYes()">✅ OUI</button>  
+    <button class="choice-btn btn-no" onclick="chooseNo()">❌ NON</button>  
+  </div>  
+</div>  
+  
+<div class="no-funds-msg" id="no-funds-msg" style="display:none">  
+  Tu n'as pas assez d'argent ! 😅<br>Appuie sur NON pour continuer.  
+</div>  
+  
+<div class="result-card" id="result-card">  
+  <div class="result-emoji" id="res-emoji">🎉</div>  
+  <div class="result-message" id="res-message">Super !</div>  
+  <div class="result-tip" id="res-tip"></div>  
+  <button class="next-btn" onclick="nextScenario()">Suivant ➡️</button>  
+</div>  
+```  
+  
+  </div>  
+  <div class="bottom-balance" id="choose-balance-badge">Tu as <span>0</span> $</div>  
+</div>  
+  
+<!-- ============================  
+     MES OBJECTIFS  
+============================= -->  
+  
+<div class="screen" id="goals-screen">  
+  <div class="screen-header">  
+    <button class="back-btn" onclick="goHome()">←</button>  
+    <div class="screen-title">🎯 Mes objectifs</div>  
+  </div>  
+  <div class="section-content">  
+  
+```  
+<div class="goals-list" id="goals-list"></div>  
+  
+<div class="add-goal-card">  
+  <div class="add-goal-title">➕ Créer un objectif</div>  
+  <div class="emoji-row" id="emoji-picker"></div>  
+  <div class="input-row">  
+    <input class="goal-input" id="goal-name" placeholder="Nom (ex : Peluche)" maxlength="20">  
+    <input class="goal-input" id="goal-price" placeholder="Prix $" type="number" min="1" max="999" style="max-width:90px">  
+  </div>  
+  <button class="create-goal-btn" onclick="createGoal()">Créer mon objectif 🎯</button>  
+</div>  
+```  
+  
+  </div>  
+  <div class="bottom-balance" id="goals-balance-badge">Tu as <span>0</span> $</div>  
+</div>  
+  
+<script>  
+// ============================  
+// STATE  
+// ============================  
+let state = {  
+  balance: 0,  
+  history: [],  
+  goals: [],  
+  scenarioIndex: 0,  
+  scenarioShuffled: []  
+};  
+  
+// Load from localStorage  
+try {  
+  const saved = localStorage.getItem('monArgentState');  
+  if (saved) state = { ...state, ...JSON.parse(saved) };  
+} catch(e) {}  
+  
+function save() {  
+  try { localStorage.setItem('monArgentState', JSON.stringify(state)); } catch(e) {}  
+}  
+  
+// ============================  
+// SCENARIOS  
+// ============================  
+const scenarios = [  
+  { emoji: '🧸', q: 'Tu veux acheter un petit jouet ?', cost: 5, yesTip: 'Tu as dépensé 5 $. C\'est amusant !', noTip: 'Super ! Tu gardes ton argent.' },  
+  { emoji: '🍭', q: 'Tu veux un bonbon ?', cost: 2, yesTip: 'Miam ! Tu as dépensé 2 $.', noTip: 'Bravo ! Tu économises !' },  
+  { emoji: '🎮', q: 'Tu attends pour un gros jeu à 15 $ ?', cost: 15, yesTip: 'Waouw ! Tu as acheté le jeu !', noTip: 'Bonne idée ! Si tu attends, tu peux acheter mieux !' },  
+  { emoji: '🌟', q: 'Tu dépenses tout maintenant ?', cost: 0, yesTip: '', noTip: 'Bravo ! Garder son argent, c\'est malin !' , spendAll: true },  
+  { emoji: '👫', q: 'Ton ami achète quelque chose. Tu fais pareil ?', cost: 4, yesTip: 'Tu as dépensé 4 $. Est-ce que tu en avais vraiment envie ?', noTip: 'Super ! Tu décides toi-même !' },  
+  { emoji: '💰', q: 'Tu veux tout utiliser maintenant ?', cost: 0, spendAll: true, yesTip: '', noTip: 'Bien ! Tu gardes ton argent pour plus tard.' },  
+  { emoji: '🦁', q: 'Tu veux économiser pour une grande peluche ?', cost: 0, save: true, noTip: 'Ok ! Ton choix !', yesTip: 'Super ! Économiser, c\'est une bonne idée !' },  
+  { emoji: '🍦', q: 'Tu veux une glace à 3 $ ?', cost: 3, yesTip: 'Délicieux ! Tu as dépensé 3 $.', noTip: 'Bravo ! Tu économises !' },  
+  { emoji: '🎁', q: 'Tu veux garder ton argent pour un cadeau spécial ?', cost: 0, save: true, yesTip: 'Super idée ! Être patient, ça paye !', noTip: 'Ok ! Tu décides.' },  
+];  
+  
+function shuffleArray(arr) {  
+  const a = [...arr];  
+  for (let i = a.length - 1; i > 0; i--) {  
+    const j = Math.floor(Math.random() * (i + 1));  
+    [a[i], a[j]] = [a[j], a[i]];  
+  }  
+  return a;  
+}  
+  
+// ============================  
+// NAVIGATION  
+// ============================  
+function goTo(id) {  
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));  
+  document.getElementById(id).classList.add('active');  
+  updateAll();  
+}  
+  
+function goHome() { goTo('home'); }  
+  
+function startScenarios() {  
+  state.scenarioShuffled = shuffleArray(scenarios);  
+  state.scenarioIndex = 0;  
+  loadScenario();  
+  goTo('choose-screen');  
+}  
+  
+// ============================  
+// UPDATE UI  
+// ============================  
+function updateAll() {  
+  document.getElementById('home-balance').textContent = state.balance;  
+  document.getElementById('money-amount').textContent = state.balance + ' $';  
+  
+  const cbSpan = document.querySelector('#choose-balance-badge span');  
+  if (cbSpan) cbSpan.textContent = state.balance;  
+  const gbSpan = document.querySelector('#goals-balance-badge span');  
+  if (gbSpan) gbSpan.textContent = state.balance;  
+  
+  renderHistory();  
+  renderGoals();  
+}  
+  
+// ============================  
+// MONEY  
+// ============================  
+function addMoney(amount) {  
+  state.balance += amount;  
+  state.history.unshift({ type: 'gain', amount, label: '🎉 Bravo !' });  
+  save();  
+  updateAll();  
+  
+  // Pop animation  
+  const el = document.getElementById('money-amount');  
+  el.classList.remove('pop');  
+  void el.offsetWidth;  
+  el.classList.add('pop');  
+  
+  spawnCoins(amount);  
+  showToast('+ ' + amount + ' $ 🎉');  
+  checkGoalsProgress();  
+}  
+  
+function spendMoney(amount, label) {  
+  if (state.balance < amount) return false;  
+  state.balance -= amount;  
+  state.history.unshift({ type: 'spend', amount, label });  
+  save();  
+  updateAll();  
+  return true;  
+}  
+  
+function renderHistory() {  
+  const list = document.getElementById('history-list');  
+  if (!state.history.length) {  
+    list.innerHTML = '<div class="empty-history">Rien pour l\'instant !</div>';  
+    return;  
+  }  
+  list.innerHTML = state.history.slice(0, 15).map(h => `  
+    <div class="history-item ${h.type}">  
+      <span class="h-icon">${h.type === 'gain' ? '⬆️' : '⬇️'}</span>  
+      <span class="h-text">${h.label}</span>  
+      <span class="h-amount">${h.type === 'gain' ? '+' : '-'}${h.amount} $</span>  
+    </div>  
+  `).join('');  
+}  
+  
+// ============================  
+// SCENARIOS  
+// ============================  
+function loadScenario() {  
+  const sc = state.scenarioShuffled[state.scenarioIndex % state.scenarioShuffled.length];  
+  
+  document.getElementById('scenario-card').style.display = 'block';  
+  document.getElementById('result-card').classList.remove('show');  
+  document.getElementById('no-funds-msg').style.display = 'none';  
+  
+  document.getElementById('sc-emoji').textContent = sc.emoji;  
+  document.getElementById('sc-question').textContent = sc.q;  
+  
+  const costEl = document.getElementById('sc-cost');  
+  if (sc.cost > 0) {  
+    costEl.textContent = 'Ça coûte ' + sc.cost + ' $';  
+    costEl.style.display = 'block';  
+  } else if (sc.spendAll) {  
+    costEl.textContent = 'Tu as ' + state.balance + ' $';  
+    costEl.style.display = 'block';  
+  } else {  
+    costEl.style.display = 'none';  
+  }  
+  
+  document.getElementById('sc-balance-note').textContent = 'Ton argent : ' + state.balance + ' $';  
+  
+  // Disable YES if not enough money  
+  const yesBtn = document.getElementById('btn-yes');  
+  if (sc.cost > 0 && state.balance < sc.cost) {  
+    yesBtn.style.opacity = '0.4';  
+    yesBtn.style.pointerEvents = 'none';  
+    document.getElementById('no-funds-msg').style.display = 'block';  
+  } else {  
+    yesBtn.style.opacity = '1';  
+    yesBtn.style.pointerEvents = 'auto';  
+  }  
+}  
+  
+function chooseYes() {  
+  const sc = state.scenarioShuffled[state.scenarioIndex % state.scenarioShuffled.length];  
+  
+  if (sc.spendAll) {  
+    if (state.balance > 0) {  
+      state.history.unshift({ type: 'spend', amount: state.balance, label: '🛒 Tout dépensé' });  
+      state.balance = 0;  
+      save();  
+      updateAll();  
+    }  
+    showResult('😮', 'Tu as tout dépensé !', 'La prochaine fois, garde un peu pour plus tard !');  
+    return;  
+  }  
+  
+  if (sc.save) {  
+    showResult('🌟', sc.yesTip, 'Si tu économises, tu peux acheter mieux !');  
+    return;  
+  }  
+  
+  if (sc.cost > 0) {  
+    const ok = spendMoney(sc.cost, '🛒 ' + sc.q);  
+    if (!ok) {  
+      showResult('😅', 'Pas assez d\'argent !', 'Tu ne peux pas acheter pour l\'instant.');  
+      return;  
+    }  
+    showResult('🛍️', sc.yesTip, 'Chaque dépense fait baisser ton argent.');  
+    return;  
+  }  
+  
+  showResult('👍', sc.yesTip || 'Ok !', '');  
+}  
+  
+function chooseNo() {  
+  const sc = state.scenarioShuffled[state.scenarioIndex % state.scenarioShuffled.length];  
+  const msg = sc.noTip || 'Bravo ! Tu économises !';  
+  showResult('💪', 'Tu économises !', msg);  
+}  
+  
+function showResult(emoji, message, tip) {  
+  document.getElementById('scenario-card').style.display = 'none';  
+  document.getElementById('no-funds-msg').style.display = 'none';  
+  
+  document.getElementById('res-emoji').textContent = emoji;  
+  document.getElementById('res-message').textContent = message;  
+  document.getElementById('res-tip').textContent = tip;  
+  document.getElementById('result-card').classList.add('show');  
+  
+  // Update balance badges  
+  const cbSpan = document.querySelector('#choose-balance-badge span');  
+  if (cbSpan) cbSpan.textContent = state.balance;  
+  
+  if (emoji === '💪' || emoji === '🌟') launchConfetti(10);  
+}  
+  
+function nextScenario() {  
+  state.scenarioIndex++;  
+  loadScenario();  
+  // Update cost display if spendAll  
+  const cbSpan = document.querySelector('#choose-balance-badge span');  
+  if (cbSpan) cbSpan.textContent = state.balance;  
+}  
+  
+// ============================  
+// GOALS  
+// ============================  
+const goalEmojis = ['🧸','🎮','🦁','⚽','🎨','📚','🎵','🚀','🌈','🏆','🎀','🎯'];  
+let selectedEmoji = '🧸';  
+  
+function initEmojiPicker() {  
+  const row = document.getElementById('emoji-picker');  
+  row.innerHTML = goalEmojis.map(e => `  
+    <div class="emoji-pick ${e === selectedEmoji ? 'selected' : ''}" onclick="pickEmoji('${e}')">${e}</div>  
+  `).join('');  
+}  
+  
+function pickEmoji(e) {  
+  selectedEmoji = e;  
+  initEmojiPicker();  
+}  
+  
+function createGoal() {  
+  const name = document.getElementById('goal-name').value.trim();  
+  const price = parseInt(document.getElementById('goal-price').value);  
+  if (!name || !price || price < 1) {  
+    showToast('Remplis le nom et le prix ! 😊');  
+    return;  
+  }  
+  state.goals.push({ id: Date.now(), emoji: selectedEmoji, name, price, saved: 0 });  
+  document.getElementById('goal-name').value = '';  
+  document.getElementById('goal-price').value = '';  
+  save();  
+  renderGoals();  
+  showToast('Objectif créé ! 🎯');  
+}  
+  
+function deleteGoal(id) {  
+  state.goals = state.goals.filter(g => g.id !== id);  
+  save();  
+  renderGoals();  
+}  
+  
+function renderGoals() {  
+  const list = document.getElementById('goals-list');  
+  if (!state.goals.length) {  
+    list.innerHTML = '<div class="card" style="text-align:center;color:#bbb;font-weight:700;padding:24px">Crée ton premier objectif ! 🎯</div>';  
+    return;  
+  }  
+  list.innerHTML = state.goals.map(g => {  
+    const pct = Math.min(100, Math.round((state.balance / g.price) * 100));  
+    const missing = Math.max(0, g.price - state.balance);  
+    const done = state.balance >= g.price;  
+    return `  
+      <div class="goal-card">  
+        <div class="goal-header">  
+          <div class="goal-emoji">${g.emoji}</div>  
+          <div class="goal-info">  
+            <div class="goal-name">${g.name}</div>  
+            <div class="goal-price">Objectif : ${g.price} $</div>  
+          </div>  
+          <button class="goal-delete" onclick="deleteGoal(${g.id})">🗑️</button>  
+        </div>  
+        <div class="progress-bar-bg">  
+          <div class="progress-bar-fill" style="width:${pct}%"></div>  
+        </div>  
+        <div class="goal-status">  
+          <span class="goal-saved">Tu as : ${state.balance} $</span>  
+          ${done  
+            ? '<span class="goal-done-badge">✅ Tu peux acheter !</span>'  
+            : `<span class="goal-missing">Il manque ${missing} $</span>`  
+          }  
+        </div>  
+      </div>  
+    `;  
+  }).join('');  
+}  
+  
+function checkGoalsProgress() {  
+  state.goals.forEach(g => {  
+    if (state.balance >= g.price) {  
+      launchConfetti(30);  
+      showToast('🎉 Tu peux acheter ' + g.name + ' !');  
+    } else if (state.balance > 0) {  
+      showToast('Tu te rapproches de ' + g.name + ' ! 💪');  
+    }  
+  });  
+}  
+  
+// ============================  
+// ANIMATIONS  
+// ============================  
+function spawnCoins(n) {  
+  for (let i = 0; i < Math.min(n, 5); i++) {  
+    setTimeout(() => {  
+      const coin = document.createElement('div');  
+      coin.className = 'coin-fly';  
+      coin.textContent = '🪙';  
+      coin.style.left = (20 + Math.random() * 60) + '%';  
+      coin.style.top = (30 + Math.random() * 40) + '%';  
+      document.body.appendChild(coin);  
+      setTimeout(() => coin.remove(), 900);  
+    }, i * 120);  
+  }  
+}  
+  
+function launchConfetti(count = 20) {  
+  const colors = ['#FFD93D','#FF6B9D','#6BCB77','#4D96FF','#C77DFF','#FF9A3C'];  
+  const container = document.getElementById('confetti');  
+  for (let i = 0; i < count; i++) {  
+    const piece = document.createElement('div');  
+    piece.className = 'confetti-piece';  
+    piece.style.left = Math.random() * 100 + 'vw';  
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];  
+    piece.style.animationDuration = (0.8 + Math.random() * 1.2) + 's';  
+    piece.style.animationDelay = Math.random() * 0.4 + 's';  
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';  
+    container.appendChild(piece);  
+    setTimeout(() => piece.remove(), 2500);  
+  }  
+}  
+  
+let toastTimer;  
+function showToast(msg) {  
+  const t = document.getElementById('toast');  
+  t.textContent = msg;  
+  t.classList.add('show');  
+  clearTimeout(toastTimer);  
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);  
+}  
+  
+// ============================  
+// INIT  
+// ============================  
+initEmojiPicker();  
+updateAll();  
+</script>  
+  
+</body>  
+</html>  
